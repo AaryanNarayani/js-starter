@@ -24,10 +24,19 @@ passport.use(
        ) {
            try {
                const googleEmail = profile.emails?.[0].value;
-               const googleAvatar = profile.photos?.[0]?.value;
+               let googleAvatar = profile.photos?.[0]?.value;
 
                if (!googleEmail) {
                    throw new Error("No email provided from Google");
+               }
+
+               // Create a user object with a random ID and the email and avatar from Google
+               // In a real application, you would typically check if the user already exists in your database
+               // and create a new user if not, or update the existing user with the new information
+               // Here, we are simulating this with a random ID for demonstration purposes
+
+               if(!googleAvatar){
+                    googleAvatar = "https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico";
                }
                const user = { id: Math.random(), email: googleEmail , avatar: googleAvatar };
 
